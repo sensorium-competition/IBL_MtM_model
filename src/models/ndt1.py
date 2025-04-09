@@ -695,7 +695,16 @@ class NDT1(nn.Module):
 
         # Encode neural data
         targets_mask = torch.zeros_like(spikes, dtype=torch.int64)
-        x, new_mask = self.encoder(spikes, time_attn_mask, spikes_timestamps, block_idx, date_idx, neuron_regions, masking_mode, eval_mask, num_neuron, eid)
+        x, new_mask = self.encoder(spikes, 
+                                   time_attn_mask, 
+                                   spikes_timestamps, 
+                                   block_idx, 
+                                   date_idx, 
+                                   neuron_regions, 
+                                   masking_mode, 
+                                   eval_mask, 
+                                   num_neuron, 
+                                   eid)
         targets_mask = targets_mask | new_mask
         spikes_lengths = self.encoder.embedder.get_stacked_lens(spikes_lengths)
 
@@ -726,7 +735,7 @@ class NDT1(nn.Module):
                 loss = self.loss_fn(outputs, targets).sum()
             n_examples = targets_mask.sum()
         elif self.method == "ctc":
-            loss = self.loss_fn(outputs.transpose(0,1), targets, spikes_lengths, targets_len)
+            loss = self.loss_fn(outputs.transpose(0,1), targets, spikes_lengths, targets_lengths)
             n_examples = torch.Tensor([len(targets)]).to(loss.device, torch.long)
         elif self.method == "sl":
             loss = self.loss_fn(outputs, targets).sum()

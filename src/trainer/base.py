@@ -146,7 +146,8 @@ class Trainer():
                     self.model.encoder.masker.ratio = self.masking_ratio
             else:
                 masking_mode = self.masking_mode
-            outputs = self._forward_model_outputs(batch, masking_mode)
+            # outputs = self._forward_model_outputs(batch, masking_mode)
+            outputs = self._forward_model_outputs_experanto(batch, masking_mode)
             loss = outputs.loss
             loss.backward()
             self.optimizer.step()
@@ -174,6 +175,22 @@ class Trainer():
             eid=batch['eid'][0]  # each batch consists of data from the same eid
         ) 
     
+    def _forward_model_outputs_experanto(self, batch, masking_mode):
+        B, T, S = batch[1]['responses'].shape
+        return self.model(
+            batch[1]['responses'].to(torch.float32).to(self.accelerator.device), 
+            time_attn_mask=torch.ones(B, T).to(torch.int64).to(self.accelerator.device),
+            space_attn_mask=torch.ones(B, S).to(torch.int64).to(self.accelerator.device),
+            spikes_timestamps=torch.arange(T).to(torch.int64).repeat(B,1).to(self.accelerator.device),
+            spikes_spacestamps=torch.arange(S).to(torch.int64).repeat(B,1).to(self.accelerator.device),
+            targets = float('nan')*torch.ones(B,1).to(torch.int64),
+            neuron_regions=[['V1']*B]*S,
+            masking_mode=masking_mode,
+            spike_augmentation=self.config.data.spike_augmentation,
+            num_neuron=S,
+            eid='test-test-test'  # each batch consists of data from the same eid
+        ) 
+    
     def eval_epoch(self):
         self.model.eval()
         eval_loss = 0.
@@ -198,12 +215,14 @@ class Trainer():
                             self.model.encoder.masker.ratio = self.masking_ratio
                     else:
                         masking_mode = self.masking_mode
-                    outputs = self._forward_model_outputs(batch, masking_mode)
+                    # outputs = self._forward_model_outputs(batch, masking_mode)
+                    outputs = self._forward_model_outputs_experanto(batch, masking_mode)
                     loss = outputs.loss
                     eval_loss += loss.item()
                     eval_examples += outputs.n_examples
                     if self.model_class in ['NDT1', 'iTransformer']:
-                        num_neuron = batch['spikes_data'].shape[2]
+                        # num_neuron = batch['spikes_data'].shape[2]
+                        num_neuron = batch[1]['responses'].shape[2] # experanto
                     elif self.model_class in ['NDT2', 'STPatch']:
                         num_neuron = outputs.num_neuron
                     if self.config.method.model_kwargs.method_name == 'ssl':
