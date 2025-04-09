@@ -1,0 +1,102 @@
+{
+    "model": {
+        "name": "baseline_multi_scan_conv",
+        "model_num": 1,
+        "num_latents": 256,
+        "dim_latents": 128,
+        "dim_input": 128,
+        "dim_neurons": 128,
+        "dim_output": 16,
+        "head_dim": 32,
+        "num_heads": 4,
+        "num_blocks": 0,
+        "patch_size": 2,
+        "tubelet_size": 2,
+        "loss_timesteps": 13,
+        "use_behavior": false,
+        "use_neurons_as_input": false,
+        "samples_per_token": 4,
+        "use_latent_bottleneck": true,
+        "flash_attention": true,
+        "use_masking": false,
+        "dropout_p": 0.0,
+        "masking_config": {
+            "masking_probability": 0.1,
+            "masking_strategy": "PopulationSubsetMaskingStrategy",
+            "enable_padding": true,
+            "debug": false
+        },
+        "rotatory": false,
+        "use_query_residual": true,
+        "num_latent_groups": 256,
+        "mlp_ratio": 4,
+        "attention_feedforward": false
+    },
+    "tokenizer": {
+        "multilayer": true,
+        "num_blocks": 3,
+        "use_hiera": false
+    },
+    "data": {
+        "class": "sensorium",
+        "path": "/mnt/vast-react/projects/neural_foundation_model/",
+        "scans": [
+            "dynamic29513-3-5-Video-full",
+            "dynamic29514-2-9-Video-full",
+            "dynamic29755-2-8-Video-full",
+            "dynamic29647-19-8-Video-full",
+            "dynamic29156-11-10-Video-full",
+            "dynamic29623-4-9-Video-full",
+            "dynamic29515-10-12-Video-full"
+        ],
+        "screen_chunk_size": 60,
+        "screen_sampling_rate": 30,
+
+        "response_chunk_size": 16,
+        "response_sampling_rate": 8,
+
+        "eye_tracker_chunk_size": 60,
+        "eye_tracker_sampling_rate": 30,
+
+        "treadmill_chunk_size": 60,
+        "treadmill_sampling_rate": 30,
+
+        "sample_stride": 1,
+
+        "batch_size": 64,
+        "img_size": [
+            36,
+            64
+        ],
+        "num_workers": 2,
+        "normalize_responses": true,
+        "responses_offset": 0
+    },
+    "optimizer": {
+        "lr": 0.002,
+        "max_iter": 50000000,
+        "lr_sched_type": "cosine_annealing",
+        "weight_decay": 0.05,
+        "warmup_period": 5000
+    },
+    "trainer": {
+        "resume": false,
+        "profiler": false,
+        "stop_criterion": "max_iter",
+        "ckpt_dir": "ckpts/sanity_check_60_16_mixed_prec_bs32_with_bottleneck_lr_2em4/",
+        "git_repo": "video_foundation_model/",
+        "log_loss_every": 100,
+        "save_epoch_every": 5,
+        "eval_epoch_every": 1,
+        "enable_tensorboard": false,
+        "logging_off": false,
+        "seed": null,
+        "git_hash": null,
+        "enable_wandb": false,
+        "wandb_name": "conv_2sec_3dropped_flash_mixed_prec_lr_0_002_cosine_bs64_wd_0_05_dropout_0_0_warmup5_000_8hz_wo306_sample_stride_1_no_attention_feedforward_mlp_4_256latents_non_rotary",
+        "save_ckpt_every": 5, 
+        "mixed_precision": true,
+        "wandb_project": "foundational_model",
+        "wandb_entity": "ecker-lab"
+    }
+}
