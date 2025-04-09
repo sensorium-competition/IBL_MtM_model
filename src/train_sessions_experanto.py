@@ -22,7 +22,7 @@ from loader.dataset import build_dataloader
 import json
 import huggingface_hub
 
-huggingface_hub.login('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')
+huggingface_hub.login(<Enter your hugging face token here>)
 
 # load config
 kwargs = {"model": "include:src/configs/ndt1_stitching_prompting.yaml"}
