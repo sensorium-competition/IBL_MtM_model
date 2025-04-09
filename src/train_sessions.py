@@ -13,6 +13,9 @@ import numpy as np
 import os
 from trainer.make import make_trainer
 import threading
+import huggingface_hub
+
+huggingface_hub.login('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')
 
 # load config
 kwargs = {
