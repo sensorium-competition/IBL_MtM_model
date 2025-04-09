@@ -18,6 +18,9 @@ import numpy as np
 import os
 from trainer.make import make_trainer
 import threading
+import huggingface_hub
+
+huggingface_hub.login('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')
 
 # load config
 kwargs = {"model": "include:src/configs/ndt1_stitching_prompting.yaml"}
@@ -43,6 +46,8 @@ train_dataset, val_dataset, test_dataset, meta_data = load_ibl_dataset(
     use_re=config.data.use_re,
     seed=config.seed,
 )
+# train_dataset: dict_keys(['spikes_sparse_data', 'spikes_sparse_indices', 'spikes_sparse_indptr', 'spikes_sparse_shape', 'choice', 'reward', 'block', 'whisker-motion-energy', 'binsize', 'interval_len', 'eid', 'sampling_freq', 'cluster_regions', 'cluster_channels', 'cluster_depths', 'good_clusters', 'cluster_uuids', 'cluster_qc'])
+
 if config.data.use_aligned_test:
     # aligned dataset
     if eid is None:
@@ -114,6 +119,18 @@ train_dataloader = make_loader(
     stitching=config.encoder.stitching,
     shuffle=True,
 )
+# /mnt/vast-react/projects/agsinz_foundation_model_brain/goirik/IBL_MtM_model/src/loader/base.py _preprocess_ibl_dataset
+# return {
+#     "spikes_data": binned_spikes_data,
+#     "time_attn_mask": time_attn_mask,
+#     "space_attn_mask": space_attn_mask,
+#     "spikes_timestamps": spikes_timestamps,
+#     "spikes_spacestamps": spikes_spacestamps,
+#     "target": target_behavior,
+#     "neuron_depths": neuron_depths, 
+#     "neuron_regions": list(neuron_regions),
+#     "eid": data['eid']
+# }
 
 val_dataloader = make_loader(
     val_dataset,
