@@ -188,7 +188,7 @@ class Trainer():
             masking_mode=masking_mode,
             spike_augmentation=self.config.data.spike_augmentation,
             num_neuron=S,
-            eid='test-test-test'  # each batch consists of data from the same eid
+            eid=batch[0],  # each batch consists of data from the same eid
         ) 
     
     def eval_epoch(self):

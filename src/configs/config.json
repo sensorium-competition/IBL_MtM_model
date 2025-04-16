@@ -39,27 +39,25 @@
     },
     "data": {
         "class": "sensorium",
-        "path": "/mnt/vast-react/projects/neural_foundation_model/",
+        "path": "/mnt/vast-react/projects/neural_foundation_model/full_foundation_export_30hz_correct/",
         "scans": [
-            "dynamic29513-3-5-Video-full",
-            "dynamic29514-2-9-Video-full",
-            "dynamic29755-2-8-Video-full",
-            "dynamic29647-19-8-Video-full",
-            "dynamic29156-11-10-Video-full",
-            "dynamic29623-4-9-Video-full",
-            "dynamic29515-10-12-Video-full"
+            "dynamic29156-11-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29228-2-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29234-6-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29513-3-5-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29514-2-9-Video-021a75e56847d574b9acbcc06c675055_30hz"
         ],
         "screen_chunk_size": 60,
         "screen_sampling_rate": 30,
 
-        "response_chunk_size": 16,
-        "response_sampling_rate": 8,
+        "response_chunk_size": 60,
+        "response_sampling_rate": 30,
 
-        "eye_tracker_chunk_size": 60,
-        "eye_tracker_sampling_rate": 30,
+        "eye_tracker_chunk_size": 40,
+        "eye_tracker_sampling_rate": 20,
 
-        "treadmill_chunk_size": 60,
-        "treadmill_sampling_rate": 30,
+        "treadmill_chunk_size": 40,
+        "treadmill_sampling_rate": 20,
 
         "sample_stride": 1,
 
@@ -93,7 +91,7 @@
         "seed": null,
         "git_hash": null,
         "enable_wandb": false,
-        "wandb_name": "conv_2sec_3dropped_flash_mixed_prec_lr_0_002_cosine_bs64_wd_0_05_dropout_0_0_warmup5_000_8hz_wo306_sample_stride_1_no_attention_feedforward_mlp_4_256latents_non_rotary",
+        "wandb_name": "sanity_check_ibl_polly",
         "save_ckpt_every": 5, 
         "mixed_precision": true,
         "wandb_project": "foundational_model",

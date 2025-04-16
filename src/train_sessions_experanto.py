@@ -22,10 +22,11 @@ from loader.dataset import build_dataloader
 import json
 import huggingface_hub
 
-huggingface_hub.login(<Enter your hugging face token here>)
+# huggingface_hub.login(<Enter your hugging face token here>)
 
 # load config
 kwargs = {"model": "include:src/configs/ndt1_stitching_prompting.yaml"}
+
 
 
 config = config_from_kwargs(kwargs)
@@ -75,7 +76,7 @@ eid = None
 #             seed=config.seed,
 #         )
 
-with open('/mnt/vast-react/projects/agsinz_foundation_model_brain/goirik/IBL_MtM_model/src/configs/config.json', 'r') as file:
+with open('/user/turishcheva/u14642/IBL_MtM_model/src/configs/config.json', 'r') as file:
     loader_config = json.load(file)
 
 print('Create Dataloader.')
@@ -166,7 +167,7 @@ if config.wandb.use:
 
 # Initialize the accelerator
 accelerator = Accelerator()
-
+print(f"Using device: {accelerator.device}")
 # load model
 NAME2MODEL = {"NDT1": NDT1, "STPatch": STPatch}
 

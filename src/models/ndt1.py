@@ -17,8 +17,21 @@ from models.masker import Masker
 
 DEFAULT_CONFIG = "src/configs/ndt1.yaml"
 
-with open('data/target_eids.txt') as file:
-    include_eids = [line.rstrip() for line in file]
+# with open('data/target_eids.txt') as file:
+#     include_eids = [line.rstrip() for line in file]
+
+include_eids = [
+    '29156-11-10',
+    '29228-2-10',
+    '29234-6-9',
+    '29513-3-5',
+    '29514-2-9',
+    '29515-10-12',
+    '29623-4-9',
+    '29647-19-8',
+    '29712-5-9',
+    '29755-2-8',
+]
 
 @dataclass
 class NDT1Output(ModelOutput):

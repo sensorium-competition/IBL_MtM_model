@@ -46,7 +46,7 @@ def build_dataloader(config, inference=False):
         cfg.dataset.global_chunk_size = config['data']['chunk_size']
         cfg.dataset.global_sampling_rate = config['data']['sampling_rate']
     
-    cfg.dataset.modality_config.screen.include_blanks = False
+    cfg.dataset.modality_config.screen.include_blanks = True
     cfg.dataset.modality_config.screen.transforms.Resize.size = config['data']['img_size']
 
     cfg.dataset.modality_config.responses.offset =  config['data']['responses_offset']
@@ -74,7 +74,7 @@ def build_dataloader(config, inference=False):
     train_loader = get_multisession_dataloader(full_paths, cfg)
 
     # Validation datasets.
-    cfg.dataset.modality_config.screen.valid_condition = {"tier": "oracle"}
+    cfg.dataset.modality_config.screen.valid_condition = {"tier": "validation"}
     cfg.dataloader.shuffle = False
     # todo - validation without overlaps
     cfg.dataset.modality_config.screen.sample_stride = (

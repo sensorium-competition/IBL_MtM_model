@@ -1,17 +1,17 @@
 seed: 42
 
 savestring: test
-wandb_project: multi-session
-log_to_wandb: false
+wandb_project: foundational_model
+log_to_wandb: true
 
 verbosity: 0
 
 # wandb configuration
 wandb:
-  use: false
-  entity: null
-  project: multi-session
-  run_name: 671c7ea7
+  use: true
+  entity: ecker-lab
+  project: foundational_model
+  run_name: pretrain-5-mice
 
 # Logging directories
 dirs:
