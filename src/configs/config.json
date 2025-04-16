@@ -1,51 +1,23 @@
 {
-    "model": {
-        "name": "baseline_multi_scan_conv",
-        "model_num": 1,
-        "num_latents": 256,
-        "dim_latents": 128,
-        "dim_input": 128,
-        "dim_neurons": 128,
-        "dim_output": 16,
-        "head_dim": 32,
-        "num_heads": 4,
-        "num_blocks": 0,
-        "patch_size": 2,
-        "tubelet_size": 2,
-        "loss_timesteps": 13,
-        "use_behavior": false,
-        "use_neurons_as_input": false,
-        "samples_per_token": 4,
-        "use_latent_bottleneck": true,
-        "flash_attention": true,
-        "use_masking": false,
-        "dropout_p": 0.0,
-        "masking_config": {
-            "masking_probability": 0.1,
-            "masking_strategy": "PopulationSubsetMaskingStrategy",
-            "enable_padding": true,
-            "debug": false
-        },
-        "rotatory": false,
-        "use_query_residual": true,
-        "num_latent_groups": 256,
-        "mlp_ratio": 4,
-        "attention_feedforward": false
-    },
-    "tokenizer": {
-        "multilayer": true,
-        "num_blocks": 3,
-        "use_hiera": false
-    },
     "data": {
         "class": "sensorium",
-        "path": "/mnt/vast-react/projects/neural_foundation_model/full_foundation_export_30hz_correct/",
-        "scans": [
+        "path1": "/mnt/vast-react/projects/neural_foundation_model/full_foundation_export_30hz_correct/",
+        "scans1": [
             "dynamic29156-11-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic29228-2-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic29234-6-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic29513-3-5-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic29514-2-9-Video-021a75e56847d574b9acbcc06c675055_30hz"
+        ],
+        "path2": "/mnt/vast-react/projects/neural_foundation_model/test_set_resampled/interpolate_with_hamming_30_30.0Hz/",
+        "scans2": [
+            "dynamic26872-17-20-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic27204-5-13-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29515-10-12-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29623-4-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29647-19-8-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29712-5-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29755-2-8-Video-021a75e56847d574b9acbcc06c675055_30hz"
         ],
         "screen_chunk_size": 60,
         "screen_sampling_rate": 30,
@@ -59,42 +31,15 @@
         "treadmill_chunk_size": 40,
         "treadmill_sampling_rate": 20,
 
-        "sample_stride": 1,
+        "sample_stride": 60,
 
         "batch_size": 64,
         "img_size": [
             36,
             64
         ],
-        "num_workers": 2,
+        "num_workers": 4,
         "normalize_responses": true,
         "responses_offset": 0
-    },
-    "optimizer": {
-        "lr": 0.002,
-        "max_iter": 50000000,
-        "lr_sched_type": "cosine_annealing",
-        "weight_decay": 0.05,
-        "warmup_period": 5000
-    },
-    "trainer": {
-        "resume": false,
-        "profiler": false,
-        "stop_criterion": "max_iter",
-        "ckpt_dir": "ckpts/sanity_check_60_16_mixed_prec_bs32_with_bottleneck_lr_2em4/",
-        "git_repo": "video_foundation_model/",
-        "log_loss_every": 100,
-        "save_epoch_every": 5,
-        "eval_epoch_every": 1,
-        "enable_tensorboard": false,
-        "logging_off": false,
-        "seed": null,
-        "git_hash": null,
-        "enable_wandb": false,
-        "wandb_name": "sanity_check_ibl_polly",
-        "save_ckpt_every": 5, 
-        "mixed_precision": true,
-        "wandb_project": "foundational_model",
-        "wandb_entity": "ecker-lab"
     }
 }
