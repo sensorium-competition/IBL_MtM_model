@@ -1,7 +1,7 @@
 program: src/train_sessions_experanto_8_mice_stride_60.py
 method: bayes
-entity: ecker-lab    # Add this line
-project: foundational_model_ibl_runs        # Add this line
+entity: ...   # Add this line
+project: ...        # Add this line
 name: ibl_sweep
 metric:
   name: eval_loss
