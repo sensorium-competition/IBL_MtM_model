@@ -1,7 +1,7 @@
 {
     "data": {
         "class": "sensorium",
-        "path1": "/mnt/vast-react/projects/neural_foundation_model/upsampling_without_hamming_30.0Hz/",
+        "path1": "...",
         "scans1": [
             "dynamic29156-11-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic29228-2-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
@@ -10,7 +10,7 @@
             "dynamic29514-2-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic17797-8-5-Video-021a75e56847d574b9acbcc06c675055_30hz"
         ],
-        "path2": "/mnt/vast-react/projects/neural_foundation_model/test_upsampling_without_hamming_30.0Hz/",
+        "path2": "...",
         "scans2": [
             "dynamic26872-17-20-Video-021a75e56847d574b9acbcc06c675055_30hz",
             "dynamic27204-5-13-Video-021a75e56847d574b9acbcc06c675055_30hz"
