@@ -37,6 +37,7 @@ class Trainer():
             self.metric = 'rsquared'
         else:
             self.metric = 'r2'
+        
                 
         self.session_active_neurons = []
 
@@ -68,16 +69,17 @@ class Trainer():
                     # save model
                     self.save_model(name="best", epoch=epoch)
                     if self.config.method.model_kwargs.method_name == 'ssl':
-                        gt_pred_fig = self.plot_epoch(
-                            gt=eval_epoch_results['eval_gt'][0], 
-                            preds=eval_epoch_results['eval_preds'][0], epoch=epoch,
-                            active_neurons=self.session_active_neurons[0][:5]
-                        )
+                        # gt_pred_fig = self.plot_epoch(
+                        #     gt=eval_epoch_results['eval_gt'][0], 
+                        #     preds=eval_epoch_results['eval_preds'][0], epoch=epoch,
+                        #     active_neurons=self.session_active_neurons[0][:5]
+                        # )
 
                         if self.config.wandb.use:
                             wandb.log({"best_epoch": epoch,
-                                    "best_gt_pred_fig": wandb.Image(gt_pred_fig['plot_gt_pred']),
-                                    "best_r2_fig": wandb.Image(gt_pred_fig['plot_r2'])})
+                                    # "best_gt_pred_fig": wandb.Image(gt_pred_fig['plot_gt_pred']),
+                                    # "best_r2_fig": wandb.Image(gt_pred_fig['plot_r2'])
+                                    })
 
                         else:
                             gt_pred_fig['plot_gt_pred'].savefig(
@@ -121,15 +123,18 @@ class Trainer():
                 wandb.log({
                     "train_loss": train_epoch_results['train_loss'],
                     "eval_loss": eval_epoch_results['eval_loss'],
-                    f"eval_trial_avg_{self.metric}": eval_epoch_results[f'eval_trial_avg_{self.metric}']
+                    f"eval_trial_avg_{self.metric}": eval_epoch_results[f'eval_trial_avg_{self.metric}'],
+                    'eval correlation': eval_epoch_results['eval_corr']
                 })
                 
         # save last model
         self.save_model(name="last", epoch=epoch)
         
         if self.config.wandb.use:
-            wandb.log({"best_eval_loss": best_eval_loss,
-                       f"best_eval_trial_avg_{self.metric}": best_eval_trial_avg_metric})
+            wandb.log({
+                "best_eval_loss": best_eval_loss,
+                f"best_eval_trial_avg_{self.metric}": best_eval_trial_avg_metric
+                })
             
     def train_epoch(self, epoch):
         train_loss = 0.
@@ -233,6 +238,7 @@ class Trainer():
                         session_results[num_neuron]["preds"].append(outputs.preds.clone())
                     
             results_list = []
+            corr_list = []
             for idx, num_neuron in enumerate(self.num_neurons):
                 _gt = torch.cat(session_results[num_neuron]["gt"], dim=0)
                 _preds = torch.cat(session_results[num_neuron]["preds"], dim=0)
@@ -250,27 +256,29 @@ class Trainer():
                 if self.config.method.model_kwargs.method_name == 'ssl':
                     results = metrics_list(gt = gt[idx][:,:,self.session_active_neurons[idx]].transpose(-1,0),
                                         pred = preds[idx][:,:,self.session_active_neurons[idx]].transpose(-1,0), 
-                                        metrics=["r2"], 
+                                        metrics=["r2", "corr"], 
                                         device=self.accelerator.device)
                     
                 elif self.config.method.model_kwargs.method_name == 'sl':
                     if self.config.method.model_kwargs.clf:
                         results = metrics_list(gt = gt[idx].argmax(1),
                                             pred = preds[idx].argmax(1), 
-                                            metrics=[self.metric], 
+                                            metrics=[self.metric, "corr"], 
                                             device=self.accelerator.device)
                     elif self.config.method.model_kwargs.reg:
                         results = metrics_list(gt = gt[idx],
                                             pred = preds[idx],
-                                            metrics=[self.metric],
+                                            metrics=[self.metric, "corr"],
                                             device=self.accelerator.device)
                 results_list.append(results[self.metric])
+                corr_list.append(results['corr'])
 
         return {
             "eval_loss": eval_loss/eval_examples,
             f"eval_trial_avg_{self.metric}": np.mean(results_list),
             "eval_gt": gt,
             "eval_preds": preds,
+            "eval_corr": np.mean(corr_list)
         }
     
     def plot_epoch(self, gt, preds, epoch, active_neurons):

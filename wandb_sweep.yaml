@@ -1,0 +1,67 @@
+program: src/train_sessions_experanto_8_mice_stride_60.py
+method: bayes
+entity: ecker-lab    # Add this line
+project: foundational_model_ibl_runs        # Add this line
+name: ibl_sweep
+metric:
+  name: eval_loss
+  goal: minimize
+
+parameters:
+  # SSL sessions trainer parameters
+  use_lograte:
+    values: [true, false]
+  
+  lr:
+    distribution: log_uniform_values
+    min: 1.e-5
+    max: 1.e-3
+  
+  wd:
+    distribution: log_uniform_values
+    min: 1.e-5
+    max: 0.1
+  
+  train_batch_size:
+    values: [16, 32, 64]
+  
+  # NDT1 stitching prompting parameters
+  masking_ratio:
+    distribution: log_uniform_values
+    min: 0.1
+    max: 0.7
+  
+  # Transformer parameters
+  n_layers:
+    values: [3, 5, 7, 10]
+  
+  hidden_size:
+    values: [256, 512, 1024]
+  
+  n_heads:
+    values: [4, 8]
+  
+  inter_size:
+    values: [512, 1024, 2048]
+  
+  transformer_dropout:
+    distribution: log_uniform_values
+    min: 0.1
+    max: 0.6
+  
+  # Embedder parameters
+  n_channels:
+    values: [128, 256, 512, 668, 1024, 2048]
+  
+  mult:
+    values: [1, 2]
+  
+  embedder_dropout:
+    distribution: log_uniform_values
+    min: 0.01
+    max: 0.5
+
+early_terminate:
+  type: hyperband
+  min_iter: 25
+  eta: 2

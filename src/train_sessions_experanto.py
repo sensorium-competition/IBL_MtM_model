@@ -38,45 +38,7 @@ set_seed(config.seed)
 
 # download dataset from huggingface
 eid = None
-# train_dataset, val_dataset, test_dataset, meta_data = load_ibl_dataset(
-#     config.dirs.dataset_cache_dir,
-#     config.dirs.huggingface_org,
-#     eid=eid,
-#     num_sessions=config.data.num_sessions,
-#     split_method=config.data.split_method,
-#     test_session_eid=config.data.test_session_eid,
-#     batch_size=config.training.train_batch_size,
-#     use_re=config.data.use_re,
-#     seed=config.seed,
-# )
-# # train_dataset: dict_keys(['spikes_sparse_data', 'spikes_sparse_indices', 'spikes_sparse_indptr', 'spikes_sparse_shape', 'choice', 'reward', 'block', 'whisker-motion-energy', 'binsize', 'interval_len', 'eid', 'sampling_freq', 'cluster_regions', 'cluster_channels', 'cluster_depths', 'good_clusters', 'cluster_uuids', 'cluster_qc'])
-
-# if config.data.use_aligned_test:
-#     # aligned dataset
-#     if eid is None:
-#         test_dataset = load_from_disk(os.path.join("data", config.dirs.behav_dir))
-#         data_columns = [
-#             "spikes_sparse_data",
-#             "spikes_sparse_indices",
-#             "spikes_sparse_indptr",
-#             "spikes_sparse_shape",
-#         ]
-#         test_dataset = concatenate_datasets(
-#             [test_dataset["train"], test_dataset["val"], test_dataset["test"]]
-#         )
-#         test_dataset = test_dataset.select_columns(data_columns)
-#     else:
-#         aligned_dataset = load_from_disk(os.path.join("data", config.dirs.behav_dir))
-#         aligned_dataset = concatenate_datasets(
-#             [aligned_dataset["train"], aligned_dataset["val"], aligned_dataset["test"]]
-#         )
-#         train_dataset, test_dataset = split_both_dataset(
-#             aligned_dataset=aligned_dataset,
-#             unaligned_dataset=train_dataset,
-#             seed=config.seed,
-#         )
-
-with open('/user/turishcheva/u14642/IBL_MtM_model/src/configs/config.json', 'r') as file:
+with open('/user/turishcheva/u14642/IBL_MtM_model/src/configs/config_5mice.json', 'r') as file:
     loader_config = json.load(file)
 
 print('Create Dataloader.')

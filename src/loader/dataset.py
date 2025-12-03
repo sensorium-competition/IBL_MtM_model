@@ -71,6 +71,7 @@ def build_dataloader(config, inference=False):
     cfg.dataloader.prefetch_factor = 2
     cfg.dataloader.batch_size = config['data']['batch_size']
     cfg.dataloader.pin_memory = False
+    cfg['dataset']['modality_config']['screen']['transforms']['normalization'] = {'mean': 113, 'std': 59}
 
     # Training datasets.
     cfg.dataset.modality_config.screen.valid_condition = {"tier": "train"}
@@ -81,9 +82,6 @@ def build_dataloader(config, inference=False):
     cfg.dataloader.batch_size = 4 # for the test mice for video - batch size is often 60, so we need smaller
     cfg.dataset.modality_config.screen.valid_condition = {"tier": "validation"}
     # this is needed for images
-    for modal in cfg.dataset.modality_config.keys():
-        cfg.dataset.modality_config[modal].chunk_size = cfg.dataset.modality_config[modal].chunk_size // 4
-
     cfg.dataset.modality_config.screen.sample_stride = cfg.dataset.modality_config.screen.chunk_size 
 
     cfg.dataloader.shuffle = False

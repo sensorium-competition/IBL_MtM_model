@@ -125,6 +125,16 @@ def metrics_list(gt, pred, metrics=["r2", "rsquared", "mse", "mae", "acc"], devi
     if "acc" in metrics:
         acc = accuracy_score(gt.cpu().numpy(), pred.cpu().detach().numpy())
         results["acc"] = acc
+    if "corr" in metrics:
+        gt_np = gt.cpu().numpy() if torch.is_tensor(gt) else gt
+        pred_np = pred.cpu().detach().numpy() if torch.is_tensor(pred) else pred
+        gt_centered = gt_np - gt_np.mean(axis=1, keepdims=True)
+        pred_centered = pred_np - pred_np.mean(axis=1, keepdims=True)
+        numerator = (gt_centered * pred_centered).sum(axis=1)
+        denominator = np.sqrt((gt_centered ** 2).sum(axis=1) * (pred_centered ** 2).sum(axis=1))
+        corrs = numerator / denominator
+        corr = np.ma.masked_invalid(corrs).mean()
+        results["corr"] = corr
     return results
 
 
