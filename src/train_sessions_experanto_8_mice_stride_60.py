@@ -109,7 +109,7 @@ def train():
 
     # download dataset from huggingface
     eid = None
-    with open('/user/turishcheva/u14642/IBL_MtM_model/src/configs/config_stride_60_8_mice.json', 'r') as file:
+    with open('src/configs/config_stride_60_8_mice.json', 'r') as file:
         loader_config = json.load(file)
 
     print('Create Dataloader.')
@@ -126,76 +126,6 @@ def train():
     print(f'list(train_dataloader.loaders.keys()) = {list(train_dataloader.loaders.keys())}')
     print(f'meta_data={meta_data}')
     num_sessions = len(meta_data["eids"])
-
-    # # wandb
-    # if config.wandb.use:
-    #     wandb.init(
-    #         project=config.wandb.project,
-    #         entity=config.wandb.entity,
-    #         config=config,
-    #         name=config.wandb.run_name
-    #         # name="train_model_{}_num_session_{}_method_{}_mask_{}_stitch_{}".format(
-    #         #     config.model.model_class,
-    #         #     num_sessions,
-    #         #     config.method.model_kwargs.method_name,
-    #         #     config.encoder.masker.mode,
-    #         #     config.encoder.stitching,
-    #         # ),
-    #     )
-
-    # # make the dataloader
-    # train_dataloader = make_loader(
-    #     train_dataset,
-    #     target=config.data.target,
-    #     load_meta=config.data.load_meta,
-    #     batch_size=config.training.train_batch_size,
-    #     pad_to_right=True,
-    #     pad_value=-1.0,
-    #     max_time_length=config.data.max_time_length,
-    #     max_space_length=config.data.max_space_length,
-    #     dataset_name=config.data.dataset_name,
-    #     sort_by_depth=config.data.sort_by_depth,
-    #     sort_by_region=config.data.sort_by_region,
-    #     stitching=config.encoder.stitching,
-    #     shuffle=True,
-    # )
-    # # /mnt/vast-react/projects/agsinz_foundation_model_brain/goirik/IBL_MtM_model/src/loader/base.py _preprocess_ibl_dataset
-    # # return {
-    # #     "spikes_data": binned_spikes_data,
-    # #     "time_attn_mask": time_attn_mask,
-    # #     "space_attn_mask": space_attn_mask,
-    # #     "spikes_timestamps": spikes_timestamps,
-    # #     "spikes_spacestamps": spikes_spacestamps,
-    # #     "target": target_behavior,
-    # #     "neuron_depths": neuron_depths, 
-    # #     "neuron_regions": list(neuron_regions),
-    # #     "eid": data['eid']
-    # # }
-
-    # val_dataloader = make_loader(
-    #     val_dataset,
-    #     target=config.data.target,
-    #     load_meta=config.data.load_meta,
-    #     batch_size=config.training.test_batch_size,
-    #     pad_to_right=True,
-    #     pad_value=-1.0,
-    #     max_time_length=config.data.max_time_length,
-    #     max_space_length=config.data.max_space_length,
-    #     dataset_name=config.data.dataset_name,
-    #     sort_by_depth=config.data.sort_by_depth,
-    #     sort_by_region=config.data.sort_by_region,
-    #     stitching=config.encoder.stitching,
-    #     shuffle=False,
-    # )
-
-    # make log dir
-    # log_dir = os.path.join(
-    #     config.dirs.log_dir,
-    #     wandb.run.name.replace('-', '_')
-    #     # config.wandb.run_name.replace('-', '_')
-    # )
-    # if not os.path.exists(log_dir):
-    #     os.makedirs(log_dir)
 
     # config.wandb.run_name = wandb.run.name
     # Initialize the accelerator
