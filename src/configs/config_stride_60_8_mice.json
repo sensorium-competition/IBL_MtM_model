@@ -1,0 +1,41 @@
+{
+    "data": {
+        "class": "sensorium",
+        "path1": "/mnt/vast-react/projects/neural_foundation_model/upsampling_without_hamming_30.0Hz/",
+        "scans1": [
+            "dynamic29156-11-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29228-2-10-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29234-6-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29513-3-5-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic29514-2-9-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic17797-8-5-Video-021a75e56847d574b9acbcc06c675055_30hz"
+        ],
+        "path2": "/mnt/vast-react/projects/neural_foundation_model/test_upsampling_without_hamming_30.0Hz/",
+        "scans2": [
+            "dynamic26872-17-20-Video-021a75e56847d574b9acbcc06c675055_30hz",
+            "dynamic27204-5-13-Video-021a75e56847d574b9acbcc06c675055_30hz"
+        ],
+        "screen_chunk_size": 60,
+        "screen_sampling_rate": 30,
+
+        "response_chunk_size": 60,
+        "response_sampling_rate": 30,
+
+        "eye_tracker_chunk_size": 40,
+        "eye_tracker_sampling_rate": 20,
+
+        "treadmill_chunk_size": 40,
+        "treadmill_sampling_rate": 20,
+
+        "sample_stride": 60,
+
+        "batch_size": 128,
+        "img_size": [
+            1,
+            1
+        ],
+        "num_workers": 8, 
+        "normalize_responses": true,
+        "responses_offset": 0
+    }
+}
